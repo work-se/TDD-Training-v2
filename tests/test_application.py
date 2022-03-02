@@ -50,7 +50,7 @@ def test_non_existent_command():
     hospital = MagicMock()
     application = Application(communication_controller, hospital)
     console_mock.add_expected_input(expected_text="Введите команду:", expected_input="выписать всех пациентов")
-    console_mock.add_expected_print(print_text="Неизвестная команда! Попробуйте ещё раз")
+    console_mock.add_expected_print(print_text="Неизвестная команда! Попробуйте ещё раз.")
 
     console_mock.add_expected_input("Введите команду:", "стоп")
     console_mock.add_expected_print("Сеанс завершён.")

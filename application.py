@@ -1,4 +1,4 @@
-from communication_controller import CommunicationController
+from communication_controller import CommunicationController, CommandTypes
 
 
 class Application:
@@ -14,3 +14,7 @@ class Application:
             command = self._communication_controller.get_command()
             if command is None:
                 continue
+
+            if command == CommandTypes.STOP:
+                self._communication_controller.print_stop_session()
+                break
