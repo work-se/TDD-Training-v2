@@ -11,10 +11,25 @@ def test_get_status():
 def test_status_up():
     patient = Patient(1, 2)
     patient.status_up()
-    assert patient._status == 3, "Неверный статус пациента после повышения"
+    assert patient.status == 3, "Неверный статус пациента после повышения"
 
 
 def test_status_down():
     patient = Patient(1, 2)
     patient.status_down()
-    assert patient._status == 1, "Неверный статус пациента после понижения"
+    assert patient.status == 1, "Неверный статус пациента после понижения"
+
+
+def test_compare_patients():
+    equal_patient1 = Patient(1, 2)
+    equal_patient2 = Patient(1, 2)
+    assert equal_patient1 == equal_patient2, "Сравнение пациентов работает неверно"
+
+    different_id_patient1 = Patient(1, 2)
+    different_id_patient2 = Patient(2, 2)
+    assert different_id_patient1 != different_id_patient2, "Сравнение пациентов работает неверно"
+
+    different_status_patient1 = Patient(1, 2)
+    different_status_patient2 = Patient(2, 2)
+    assert different_status_patient1 != different_status_patient2, "Сравнение пациентов работает неверно"
+
