@@ -1,5 +1,7 @@
 from enum import Enum
 
+from console import Console
+
 
 class CommandTypes(Enum):
     def __new__(cls, value_en: str, value_ru: str):
@@ -18,8 +20,22 @@ class CommandTypes(Enum):
     STOP = ("стоп", "stop")
 
 
-
 class CommunicationController:
 
-    def __init__(self):
-        pass
+    def __init__(self, console=None):
+        self._console = console if console is not None else Console()
+
+    def print_current_patient_status(self, status):
+        self._console.print(f'Статус пациента: "{status}"')
+
+    def print_new_patient_status(self, status):
+        self._console.print(f'Новый статус пациента: "{status}"')
+
+    def get_command(self) -> CommandTypes:
+        command = self._console.input("Введите команду:")
+        parsed_command = None
+        try:
+            parsed_command = CommandTypes(command)
+        except ValueError:
+            self._console.print("Неизвестная команда! Попробуйте ещё раз.")
+        return parsed_command
