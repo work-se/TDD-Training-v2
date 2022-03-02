@@ -3,6 +3,12 @@ from enum import Enum
 from console import Console
 
 
+class InputWrongPatientId(Exception):
+
+    def __init__(self):
+        super().__init__("Ошибка ввода. ID пациента должно быть числом (целым, положительным)")
+
+
 class CommandTypes(Enum):
     def __new__(cls, value_en: str, value_ru: str):
         obj = object.__new__(cls)
@@ -39,8 +45,12 @@ class CommunicationController:
         for statistics_part in statistics:
             self._console.print(f' - в статусе "{statistics_part.status}": {statistics_part.patients_number} чел.')
 
-    def get_patient_id(self):
-        pass
+    def get_patient_id(self) -> int:
+        patient_id = self._console.input("Введите ID пациента:")
+        try:
+            return int(patient_id)
+        except ValueError:
+            raise InputWrongPatientId
 
     def get_command(self) -> CommandTypes:
         command = self._console.input("Введите команду:")

@@ -1,7 +1,7 @@
 import pytest
 
 from communication_controller import CommunicationController, CommandTypes, InputWrongPatientId
-from hospital import StatisticsPartDto
+from dto import StatisticsPartDto
 from tests.mocks.console_mock import ConsoleMock
 
 
@@ -111,7 +111,7 @@ def test_print_statistics():
     console_mock.add_expected_print("Статистика по статусам:")
     console_mock.add_expected_print(' - в статусе "Тяжело болен": 1 чел.')
     console_mock.add_expected_print(' - в статусе "Болен": 198 чел.')
-    console_mock.add_expected_print(' - в статусе "Болен": 198 чел.')
+    console_mock.add_expected_print(' - в статусе "Слегка болен": 1 чел.')
 
     communication_controller.print_statistics(statistics)
     console_mock.check_all_mocks_used()
