@@ -31,6 +31,17 @@ class CommunicationController:
     def print_new_patient_status(self, status):
         self._console.print(f'Новый статус пациента: "{status}"')
 
+    def print_stop_session(self):
+        self._console.print("Сеанс завершён.")
+
+    def print_statistics(self, statistics):
+        self._console.print("Статистика по статусам:")
+        for statistics_part in statistics:
+            self._console.print(f' - в статусе "{statistics_part.status}": {statistics_part.patients_number} чел.')
+
+    def get_patient_id(self):
+        pass
+
     def get_command(self) -> CommandTypes:
         command = self._console.input("Введите команду:")
         parsed_command = None
