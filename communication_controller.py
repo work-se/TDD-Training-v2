@@ -45,6 +45,9 @@ class CommunicationController:
         for statistics_part in statistics:
             self._console.print(f' - в статусе "{statistics_part.status}": {statistics_part.patients_number} чел.')
 
+    def print_exception(self, exception_text):
+        self._console.print(exception_text)
+
     def get_patient_id(self) -> int:
         patient_id = self._console.input("Введите ID пациента:")
         try:

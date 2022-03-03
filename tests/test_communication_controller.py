@@ -115,3 +115,12 @@ def test_print_statistics():
 
     communication_controller.print_statistics(statistics)
     console_mock.check_all_mocks_used()
+
+
+def test_print_exception():
+    console_mock = ConsoleMock()
+    communication_controller = CommunicationController(console_mock)
+    console_mock.add_expected_print("Ошибка ввода. ID пациента должно быть числом (целым, положительным)")
+
+    communication_controller.print_exception("Ошибка ввода. ID пациента должно быть числом (целым, положительным)")
+    console_mock.check_all_mocks_used()
