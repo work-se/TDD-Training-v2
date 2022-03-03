@@ -9,7 +9,7 @@ class Hospital:
         3: "Готов к выписке"
     }
 
-    def __init__(self, patients):
+    def __init__(self, patients=None):
         self._form_hospital(patients)
 
     def _form_hospital(self, patients):
