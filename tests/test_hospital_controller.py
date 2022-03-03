@@ -13,12 +13,14 @@ def test_patient_status_up():
 
     communication_controller.get_patient_id = MagicMock(return_value=1)
     hospital.patient_status_up = MagicMock()
+    hospital.get_patient_status = MagicMock(return_value="Болен")
     communication_controller.print_new_patient_status = MagicMock()
 
     hospital_controller.patient_status_up()
 
     communication_controller.get_patient_id.assert_called()
     hospital.patient_status_up.assert_called_with(1)
+    hospital.get_patient_status.assert_called_with(1)
     communication_controller.print_new_patient_status.assert_called_with("Болен")
 
 
