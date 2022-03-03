@@ -4,7 +4,32 @@ from unittest.mock import MagicMock
 
 from application import Application
 from communication_controller import CommunicationController
+from hospital import Hospital
+from patient import Patient
 from tests.mocks.console_mock import ConsoleMock
+
+
+def test_patient_status_up():
+    console_mock = ConsoleMock()
+    communication_controller = CommunicationController(console_mock)
+    hospital = Hospital(
+        [Patient(1, 1), Patient(2, 1)]
+    )
+    expected_hospital = Hospital(
+        [Patient(1, 1), Patient(2, 2)]
+    )
+    application = Application(communication_controller, hospital)
+
+    console_mock.add_expected_input("Введите команду:", "повысить статус пациента")
+    console_mock.add_expected_input("Введите ID пациента", "2")
+    console_mock.add_expected_print('Новый статус пациента: "Слегка болен"')
+
+    console_mock.add_expected_input("Введите команду:", "стоп")
+    console_mock.add_expected_print("Сеанс завершён.")
+
+    application.exec()
+    console_mock.check_all_mocks_used()
+    assert hospital == expected_hospital, "После выполнения команд состояние больницы не соответствует ожидаемому"
 
 
 def test_patients_status_manipulations():
@@ -23,11 +48,11 @@ def test_patients_status_manipulations():
 
     console_mock.add_expected_input("Введите команду:", "повысить статус пациента")
     console_mock.add_expected_input("Введите ID пациента", "2")
-    console_mock.add_expected_print("Слегка болен")
+    console_mock.add_expected_print('Новый статус пациента: "Слегка болен"')
 
     console_mock.add_expected_input("Введите команду:", "понизить статус пациента")
     console_mock.add_expected_input("Введите ID пациента", "3")
-    console_mock.add_expected_print("Тяжело болен")
+    console_mock.add_expected_print('Новый статус пациента: "Тяжело болен"')
 
     console_mock.add_expected_input("Введите команду:", "рассчитать статистику")
     console_mock.add_expected_print("Статистика по статусам:")
