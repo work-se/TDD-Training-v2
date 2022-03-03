@@ -5,6 +5,7 @@ from unittest.mock import MagicMock
 from application import Application
 from communication_controller import CommunicationController
 from hospital import Hospital
+from hospital_controller import HospitalController
 from patient import Patient
 from tests.mocks.console_mock import ConsoleMock
 
@@ -18,7 +19,8 @@ def test_patient_status_up():
     expected_hospital = Hospital(
         [Patient(1, 1), Patient(2, 2)]
     )
-    application = Application(communication_controller, hospital)
+    hospital_controller = HospitalController(hospital, communication_controller)
+    application = Application(communication_controller, hospital_controller)
 
     console_mock.add_expected_input("Введите команду:", "повысить статус пациента")
     console_mock.add_expected_input("Введите ID пациента:", "2")
@@ -41,7 +43,9 @@ def test_patients_status_manipulations():
     expected_hospital = Hospital(
         [Patient(1, 1), Patient(2, 2), Patient(3, 0)]
     )
-    application = Application(communication_controller, hospital)
+    hospital_controller = HospitalController(hospital, communication_controller)
+    application = Application(communication_controller, hospital_controller)
+
     console_mock.add_expected_input(expected_text="Введите команду:", expected_input="узнать статус пациента")
     console_mock.add_expected_input("Введите ID пациента:", "1")
     console_mock.add_expected_print(print_text="Болен")
@@ -72,8 +76,9 @@ def test_patients_status_manipulations():
 def test_non_existent_command():
     console_mock = ConsoleMock()
     communication_controller = CommunicationController(console_mock)
-    hospital = MagicMock()
-    application = Application(communication_controller, hospital)
+    hospital_controller = MagicMock()
+    application = Application(communication_controller, hospital_controller)
+
     console_mock.add_expected_input(expected_text="Введите команду:", expected_input="выписать всех пациентов")
     console_mock.add_expected_print(print_text="Неизвестная команда! Попробуйте ещё раз.")
 
@@ -91,7 +96,9 @@ def test_wrong_patient_id(wrong_id):
     console_mock = ConsoleMock()
     communication_controller = CommunicationController(console_mock)
     hospital = MagicMock()
-    application = Application(communication_controller, hospital)
+    hospital_controller = HospitalController(hospital, communication_controller)
+    application = Application(communication_controller, hospital_controller)
+
     console_mock.add_expected_input(expected_text="Введите команду:", expected_input="status up")
     console_mock.add_expected_input("Введите ID пациента", wrong_id)
     console_mock.add_expected_print(print_text="Ошибка ввода. ID пациента должно быть числом (целым, положительным)")
