@@ -10,14 +10,14 @@ from patient import Patient
 from tests.mocks.console_mock import ConsoleMock
 
 
-def test_patient_status_up():
+def test_change_patients_status():
     console_mock = ConsoleMock()
     communication_controller = CommunicationController(console_mock)
     hospital = Hospital(
         [Patient(1, 1), Patient(2, 1)]
     )
     expected_hospital = Hospital(
-        [Patient(1, 1), Patient(2, 2)]
+        [Patient(1, 0), Patient(2, 2)]
     )
     hospital_controller = HospitalController(hospital, communication_controller)
     application = Application(communication_controller, hospital_controller)
@@ -25,6 +25,10 @@ def test_patient_status_up():
     console_mock.add_expected_input("Введите команду:", "повысить статус пациента")
     console_mock.add_expected_input("Введите ID пациента:", "2")
     console_mock.add_expected_print('Новый статус пациента: "Слегка болен"')
+
+    console_mock.add_expected_input("Введите команду:", "понизить статус пациента")
+    console_mock.add_expected_input("Введите ID пациента:", "1")
+    console_mock.add_expected_print('Новый статус пациента: "Тяжело болен"')
 
     console_mock.add_expected_input("Введите команду:", "стоп")
     console_mock.add_expected_print("Сеанс завершён.")

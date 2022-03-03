@@ -35,4 +35,3 @@ class HospitalController:
             self._communication_controller.print_current_patient_status(status)
         except InputWrongPatientId as exception:
             self._communication_controller.print_exception(str(exception))
-
