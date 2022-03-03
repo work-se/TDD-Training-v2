@@ -21,3 +21,7 @@ class Application:
                 break
             elif command == CommandTypes.STATUS_UP:
                 self._hospital_controller.patient_status_up()
+            elif command == CommandTypes.STATUS_DOWN:
+                self._hospital_controller.patient_status_down()
+            elif command == CommandTypes.PATIENT_STATUS:
+                self._hospital_controller.get_patient_status()

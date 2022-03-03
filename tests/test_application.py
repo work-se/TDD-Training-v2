@@ -104,7 +104,7 @@ def test_wrong_patient_id(wrong_id):
     application = Application(communication_controller, hospital_controller)
 
     console_mock.add_expected_input(expected_text="Введите команду:", expected_input="status up")
-    console_mock.add_expected_input("Введите ID пациента", wrong_id)
+    console_mock.add_expected_input("Введите ID пациента:", wrong_id)
     console_mock.add_expected_print(print_text="Ошибка ввода. ID пациента должно быть числом (целым, положительным)")
 
     console_mock.add_expected_input("Введите команду:", "стоп")
