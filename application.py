@@ -22,4 +22,8 @@ class Application:
                 try:
                     patient_id = self._communication_controller.get_patient_id()
                 except InputWrongPatientId as exception:
-                    self._communication_controller.print_exception()
+                    self._communication_controller.print_exception(str(exception))
+                    continue
+                self._hospital.patient_status_up(patient_id)
+                new_status = self._hospital.get_patient_status(patient_id)
+                self._communication_controller.print_new_patient_status(new_status)

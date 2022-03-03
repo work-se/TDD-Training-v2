@@ -21,7 +21,7 @@ def test_patient_status_up():
     application = Application(communication_controller, hospital)
 
     console_mock.add_expected_input("Введите команду:", "повысить статус пациента")
-    console_mock.add_expected_input("Введите ID пациента", "2")
+    console_mock.add_expected_input("Введите ID пациента:", "2")
     console_mock.add_expected_print('Новый статус пациента: "Слегка болен"')
 
     console_mock.add_expected_input("Введите команду:", "стоп")
@@ -43,15 +43,15 @@ def test_patients_status_manipulations():
     )
     application = Application(communication_controller, hospital)
     console_mock.add_expected_input(expected_text="Введите команду:", expected_input="узнать статус пациента")
-    console_mock.add_expected_input("Введите ID пациента", "1")
+    console_mock.add_expected_input("Введите ID пациента:", "1")
     console_mock.add_expected_print(print_text="Болен")
 
     console_mock.add_expected_input("Введите команду:", "повысить статус пациента")
-    console_mock.add_expected_input("Введите ID пациента", "2")
+    console_mock.add_expected_input("Введите ID пациента:", "2")
     console_mock.add_expected_print('Новый статус пациента: "Слегка болен"')
 
     console_mock.add_expected_input("Введите команду:", "понизить статус пациента")
-    console_mock.add_expected_input("Введите ID пациента", "3")
+    console_mock.add_expected_input("Введите ID пациента:", "3")
     console_mock.add_expected_print('Новый статус пациента: "Тяжело болен"')
 
     console_mock.add_expected_input("Введите команду:", "рассчитать статистику")

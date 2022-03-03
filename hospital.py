@@ -33,3 +33,6 @@ class Hospital:
 
     def patient_status_down(self, patient_id: int):
         self._patients[patient_id].status_down()
+
+    def __eq__(self, other: 'Hospital') -> bool:
+        return self._patients == other._patients and self._patient_idx == other._patient_idx

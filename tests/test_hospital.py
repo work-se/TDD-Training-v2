@@ -49,3 +49,22 @@ def test_get_patient_status():
     hospital = Hospital([Patient(1, 2)])
     status = hospital.get_patient_status(1)
     assert status == "Слегка болен", "Получен неверный статус пациента"
+
+
+def test_compare_hospital():
+    equal_hospital1 = Hospital([Patient(1, 2), Patient(2, 1)])
+    equal_hospital2 = Hospital([Patient(1, 2), Patient(2, 1)])
+    assert equal_hospital1 == equal_hospital2, "Сравнение hospital работает неверно"
+
+    diff_size_hospital1 = Hospital([Patient(1, 2)])
+    diff_size_hospital2 = Hospital([Patient(1, 2), Patient(2, 1)])
+    assert diff_size_hospital1 != diff_size_hospital2, "Сравнение hospital работает неверно"
+
+    diff_patients_hospital1 = Hospital([Patient(1, 2), Patient(2, 2)])
+    diff_patients_hospital2 = Hospital([Patient(1, 2), Patient(2, 1)])
+    assert diff_patients_hospital1 != diff_patients_hospital2, "Сравнение hospital работает неверно"
+
+    diff_patient_idx_hospital1 = Hospital([Patient(1, 2), Patient(2, 1)])
+    diff_patient_idx_hospital2 = Hospital([Patient(1, 2), Patient(2, 1)])
+    diff_patient_idx_hospital2._patient_idx = 3
+    assert diff_patient_idx_hospital1 != diff_patient_idx_hospital2, "Сравнение hospital работает неверно"
