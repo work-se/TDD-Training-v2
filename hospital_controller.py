@@ -35,3 +35,9 @@ class HospitalController:
             self._communication_controller.print_current_patient_status(status)
         except InputWrongPatientId as exception:
             self._communication_controller.print_exception(str(exception))
+
+    def print_statistics(self):
+        statistics = list(filter(
+            lambda item: item.patients_number > 0, self._hospital.get_statistics()
+        ))
+        self._communication_controller.print_statistics(statistics)

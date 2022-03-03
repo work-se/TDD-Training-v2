@@ -1,5 +1,6 @@
 import pytest
 
+from dto import StatisticsPartDto
 from patient import Patient
 from hospital import Hospital
 
@@ -68,3 +69,17 @@ def test_compare_hospital():
     diff_patient_idx_hospital2 = Hospital([Patient(1, 2), Patient(2, 1)])
     diff_patient_idx_hospital2._patient_idx = 3
     assert diff_patient_idx_hospital1 != diff_patient_idx_hospital2, "Сравнение hospital работает неверно"
+
+
+def test_get_statistics():
+    hospital = Hospital([
+        Patient(1, 0), Patient(2, 1), Patient(3, 1), Patient(4, 3)
+    ])
+    expected_statistics = [
+        StatisticsPartDto(status="Тяжело болен", patients_number=1),
+        StatisticsPartDto(status="Болен", patients_number=2),
+        StatisticsPartDto(status="Слегка болен", patients_number=0),
+        StatisticsPartDto(status="Готов к выписке", patients_number=1),
+    ]
+    statistics = hospital.get_statistics()
+    assert statistics == expected_statistics, "Получена неверная статистика"

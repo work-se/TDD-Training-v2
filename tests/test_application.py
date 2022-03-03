@@ -52,7 +52,7 @@ def test_patients_status_manipulations():
 
     console_mock.add_expected_input(expected_text="Введите команду:", expected_input="узнать статус пациента")
     console_mock.add_expected_input("Введите ID пациента:", "1")
-    console_mock.add_expected_print(print_text="Болен")
+    console_mock.add_expected_print(print_text='Статус пациента: "Болен"')
 
     console_mock.add_expected_input("Введите команду:", "повысить статус пациента")
     console_mock.add_expected_input("Введите ID пациента:", "2")
@@ -64,9 +64,9 @@ def test_patients_status_manipulations():
 
     console_mock.add_expected_input("Введите команду:", "рассчитать статистику")
     console_mock.add_expected_print("Статистика по статусам:")
-    console_mock.add_expected_print('- в статусе "Тяжело болен": 1 чел.')
-    console_mock.add_expected_print('- в статусе "Болен": 1 чел.')
-    console_mock.add_expected_print('- в статусе "Слегка болен": 1 чел.')
+    console_mock.add_expected_print(' - в статусе "Тяжело болен": 1 чел.')
+    console_mock.add_expected_print(' - в статусе "Болен": 1 чел.')
+    console_mock.add_expected_print(' - в статусе "Слегка болен": 1 чел.')
 
     console_mock.add_expected_input("Введите команду:", "стоп")
     console_mock.add_expected_print("Сеанс завершён.")

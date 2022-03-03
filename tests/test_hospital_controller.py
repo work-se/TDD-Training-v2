@@ -3,6 +3,7 @@ import pytest
 from unittest.mock import MagicMock
 
 from communication_controller import InputWrongPatientId
+from dto import StatisticsPartDto
 from hospital_controller import HospitalController
 
 
@@ -119,3 +120,30 @@ def test_get_patient_status_with_wrong_id():
     communication_controller.print_exception.assert_called_with(
         "Ошибка ввода. ID пациента должно быть числом (целым, положительным)"
     )
+
+
+def test_print_statistics():
+    hospital = MagicMock()
+    communication_controller = MagicMock()
+    hospital_controller = HospitalController(hospital, communication_controller)
+
+    return_statistics = [
+        StatisticsPartDto(status="Тяжело болен", patients_number=1),
+        StatisticsPartDto(status="Болен", patients_number=2),
+        StatisticsPartDto(status="Слегка болен", patients_number=0),
+        StatisticsPartDto(status="Готов к выписке", patients_number=1),
+    ]
+    expected_statistics = [
+        StatisticsPartDto(status="Тяжело болен", patients_number=1),
+        StatisticsPartDto(status="Болен", patients_number=2),
+        StatisticsPartDto(status="Готов к выписке", patients_number=1),
+    ]
+
+    hospital.get_statistics = MagicMock(return_value=return_statistics)
+    communication_controller.print_statistics = MagicMock()
+
+    hospital_controller.print_statistics()
+
+    hospital.get_statistics.assert_called()
+    communication_controller.print_statistics.assert_called_with(expected_statistics)
+

@@ -1,3 +1,4 @@
+from dto import StatisticsPartDto
 from patient import Patient
 
 
@@ -33,6 +34,19 @@ class Hospital:
 
     def patient_status_down(self, patient_id: int):
         self._patients[patient_id].status_down()
+
+    def get_statistics(self):
+        return [
+            StatisticsPartDto(
+                status=status_name,
+                patients_number=len(
+                    list(
+                        filter(lambda patient: patient.get_status() == status, self._patients.values())
+                    )
+                )
+            )
+            for status, status_name in self.STATUSES.items()
+        ]
 
     def __eq__(self, other: 'Hospital') -> bool:
         return self._patients == other._patients and self._patient_idx == other._patient_idx
