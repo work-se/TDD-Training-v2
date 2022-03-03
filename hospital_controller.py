@@ -19,3 +19,20 @@ class HospitalController:
         except InputWrongPatientId as exception:
             self._communication_controller.print_exception(str(exception))
 
+    def patient_status_down(self):
+        try:
+            patient_id = self._communication_controller.get_patient_id()
+            self._hospital.patient_status_down(patient_id)
+            new_status = self._hospital.get_patient_status(patient_id)
+            self._communication_controller.print_new_patient_status(new_status)
+        except InputWrongPatientId as exception:
+            self._communication_controller.print_exception(str(exception))
+
+    def get_patient_status(self):
+        try:
+            patient_id = self._communication_controller.get_patient_id()
+            status = self._hospital.get_patient_status(patient_id)
+            self._communication_controller.print_current_patient_status(status)
+        except InputWrongPatientId as exception:
+            self._communication_controller.print_exception(str(exception))
+
